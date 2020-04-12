@@ -48,6 +48,10 @@ share.gis = function ()
         -- ahead or behind
         if gs.remote then
           -- remote branch name
+          if gs.lbn:match("^heads/.*") then
+            -- remove "heads/" from local branch name if it is HEAD
+            gs.lbn = gs.lbn:gsub("^heads/(.*)", "%1")
+          end
           gs.rbn = gs.remote:match("[^%.]%w*/"..gs.lbn) or c.ng.."/"..gs.lbn
           gs.bst = gs.remote:match("%[.*%]")
           if gs.bst then
